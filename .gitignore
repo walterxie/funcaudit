@@ -4,6 +4,16 @@
 # Log file
 *.log
 
+# Intellij
+*.ipr
+*.iws
+*.iml
+
+out/
+
+# macOS Files
+**/.DS_Store
+
 # BlueJ files
 *.ctxt
 
