@@ -1,9 +1,15 @@
 package audit.beast2;
 
 import audit.AbstractClassLoader;
+import beast.evolution.alignment.Alignment;
+import beast.evolution.substitutionmodel.SubstitutionModel;
 import beast.util.PackageManager;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Walter Xie
@@ -28,44 +34,72 @@ public class B2ClassLoader extends AbstractClassLoader {
         return PackageManager.find(cls, pkgDir);
     }
 
+    public Map<String, List<String>> getClassMap() {
+        Map<String, List<String>> clsMap = new HashMap();
+
+//        List<String> listBON = getChildClassNames(beast.core.BEASTObject.class, "evolution");
+//        clsMap.put("beast.core.BEASTObject", listBON);
+
+        Class[] classes = new Class[]{Alignment.class, SubstitutionModel.class,
+                beast.evolution.sitemodel.SiteModelInterface.class,
+                beast.evolution.branchratemodel.BranchRateModel.class,
+                beast.math.distributions.ParametricDistribution.class,
+                beast.core.parameter.Parameter.class,
+                beast.core.Distribution.class,
+                beast.core.Operator.class,
+                beast.evolution.datatype.DataType.class
+        };
+
+        for (Class cls : classes) {
+            List<String> listClsNm = getChildClassNames(cls, null);
+            String key = cls.getName();
+            clsMap.put(key, listClsNm);
+        }
+
+        return clsMap;
+ /*
+        b2loader.getChildClassNames(TreeDistribution.class, null);
+        b2loader.getChildClassNames(Prior.class, null);
+        b2loader.getChildClassNames(GenericTreeLikelihood.class, null);
+        b2loader.getChildClassNames(StateNode.class, null);
+        b2loader.getChildClassNames(CalculationNode.class, null);
+*/
+    }
+
+    public void writeMarkdown (String fn, Map<String, List<String>> clsMap) throws FileNotFoundException {
+
+        try (PrintWriter out = new PrintWriter(fn)) {
+
+            out.println("| BEAST 2 |");
+            out.println("| ------- |");
+
+            for (Map.Entry<String, List<String>> entry : clsMap.entrySet()) {
+                String key = entry.getKey();
+                List<String> classes = entry.getValue();
+
+                out.println("| " + key + " |");
+                for (String cls : classes) {
+                    out.println("| " + cls + " |");
+                }
+
+            }
+
+        }
+
+    }
+
+
     public static void main(String[] args) {
 
         B2ClassLoader b2loader = new B2ClassLoader();
-        List<String> listBON = b2loader.getChildClassNames(beast.core.BEASTObject.class, "evolution");
 
-        b2loader.getChildClassNames(beast.evolution.alignment.Alignment.class, null);
+        Map<String, List<String>> clsMap = b2loader.getClassMap();
 
-        b2loader.getChildClassNames(beast.evolution.substitutionmodel.SubstitutionModel.class, null);
-
-        b2loader.getChildClassNames(beast.evolution.sitemodel.SiteModelInterface.class, null);
-
-        b2loader.getChildClassNames(beast.evolution.branchratemodel.BranchRateModel.class, null);
-
-        b2loader.getChildClassNames(beast.math.distributions.ParametricDistribution.class, null);
-
-        b2loader.getChildClassNames(beast.core.parameter.Parameter.class, null);
-
-        List<String> listDist = b2loader.getChildClassNames(beast.core.Distribution.class, null);
-
-        b2loader.getChildClassNames(beast.core.Operator.class, null);
-
-        b2loader.getChildClassNames(beast.evolution.datatype.DataType.class, null);
-
-
- /*
-        b2loader.getChildClassNames(TreeDistribution.class, null);
-
-        b2loader.getChildClassNames(Prior.class, null);
-
-        b2loader.getChildClassNames(GenericTreeLikelihood.class, null);
-
-
-        b2loader.getChildClassNames(StateNode.class, null);
-
-        b2loader.getChildClassNames(CalculationNode.class, null);
-
-*/
-
+        try {
+            b2loader.writeMarkdown("beast2.md", clsMap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
