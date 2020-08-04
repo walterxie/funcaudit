@@ -44,11 +44,11 @@ public class B2ClassLoader extends AbstractClassLoader {
             beast.math.distributions.ParametricDistribution.class,
             beast.core.parameter.Parameter.class,
             beast.core.Distribution.class,
-            beast.core.Operator.class,
             beast.evolution.datatype.DataType.class
     };}
  /*
  b2loader.getChildClassNames(beast.core.BEASTObject.class, "evolution");
+        beast.core.Operator.class,
         b2loader.getChildClassNames(TreeDistribution.class, null);
         b2loader.getChildClassNames(Prior.class, null);
         b2loader.getChildClassNames(GenericTreeLikelihood.class, null);

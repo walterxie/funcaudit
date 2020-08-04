@@ -9,7 +9,10 @@
 *.iws
 *.iml
 
+# build
 out/
+build/
+dist/
 
 # macOS Files
 **/.DS_Store
