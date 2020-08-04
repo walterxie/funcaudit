@@ -2,9 +2,11 @@ package audit.lphy;
 
 import audit.AbstractClassLoader;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Walter Xie
@@ -21,14 +23,21 @@ public class LPhyClassLoader extends AbstractClassLoader {
         return getSubcls(cls, dir, PKG);
     }
 
+    @Override
+    protected Class[] getClasses() {
+        return new Class[]{lphy.graphicalModel.Generator.class};
+    }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        LPhyClassLoader loader = new LPhyClassLoader();
-        List<String> listLPN = loader.getChildClassNames(lphy.graphicalModel.Generator.class, null);
+        LPhyClassLoader lphyloader = new LPhyClassLoader();
+        Map<String, List<String>> clsMap = lphyloader.getClassMap();
 
-        loader.getChildClassNames(lphy.graphicalModel.GraphicalModelNode.class, null);
-
+        try {
+            lphyloader.writeMarkdown("lphy.md", "Lphy", clsMap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 

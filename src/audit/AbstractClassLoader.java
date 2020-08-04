@@ -4,7 +4,9 @@ import beast.core.util.Log;
 import beast.util.PackageManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,11 +25,6 @@ public abstract class AbstractClassLoader {
 
     File jarFile;
     protected URLClassLoader loader;
-
-//    public AbstractClassLoader(File jarFile) throws IOException {
-//        this.jarFile = jarFile;
-//
-//    }
 
 
     public JarFile getJarFile(Path jarPath){
@@ -57,7 +54,54 @@ public abstract class AbstractClassLoader {
         return (listCCN);
     }
 
+    public Map<String, List<String>> getClassMap() {
+        // insertion-ordered
+        Map<String, List<String>> clsMap = new LinkedHashMap();
+
+        for (Class cls : getClasses()) {
+            List<String> listClsNm = getChildClassNames(cls, null);
+            String key = cls.getName();
+            listClsNm.remove(key);
+            clsMap.put(key, listClsNm);
+        }
+
+        return clsMap;
+    }
+
+    public void writeMarkdown (String fn, String title, Map<String, List<String>> clsMap) throws FileNotFoundException {
+
+        try (PrintWriter out = new PrintWriter(fn)) {
+
+            out.println("| " + title + " |");
+            out.println("| ------- |");
+
+            for (Map.Entry<String, List<String>> entry : clsMap.entrySet()) {
+                String key = entry.getKey();
+                List<String> classes = entry.getValue();
+
+                out.println("| **" + key + "** |");
+                for (String cls : classes) {
+                    out.println("| " + cls + " |");
+                }
+
+            }
+        }
+    }
+
+    protected abstract Class[] getClasses();
+
     protected abstract List<String> getSubcls(Class<?> cls);
+
+    protected void initClassLoader(String urlSpec) {
+        URL[] urls = new URL[0];
+        try {
+            urls = new URL[]{ new URL(urlSpec) };
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+        loader = URLClassLoader.newInstance(urls);
+    }
+
 
     /**
      * Checks the given package for classes that inherited from the given class,
@@ -71,13 +115,7 @@ public abstract class AbstractClassLoader {
     protected List<String> getSubcls(Class<?> cls, JarFile jarFile, String pkgname) {
         Enumeration<JarEntry> e = jarFile.entries();
 
-        URL[] urls = new URL[0];
-        try {
-            urls = new URL[]{ new URL("jar:file:" + jarFile+"!/") };
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        }
-        loader = URLClassLoader.newInstance(urls);
+        initClassLoader("jar:file:" + jarFile + "!/");
 
         List<String> result = new ArrayList<String>();
         while (e.hasMoreElements()) {
@@ -125,13 +163,7 @@ public abstract class AbstractClassLoader {
      * @return a list with all the found classnames
      */
     protected List<String> getSubcls(Class<?> cls, Path buildPath, String pkgname) {
-        URL[] urls = new URL[0];
-        try {
-            urls = new URL[]{ new URL("file://" + buildPath + "/") };
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        }
-        loader = URLClassLoader.newInstance(urls);
+        initClassLoader("file://" + buildPath + "/");
 
         List<String> result = new ArrayList<String>();
 //        final PathMatcher filter = FileSystems.getDefault().getPathMatcher("glob:.class");
@@ -188,6 +220,7 @@ public abstract class AbstractClassLoader {
         }
 
     }
+
 
 
 }
