@@ -1,18 +1,19 @@
 package audit.beast2;
 
+import audit.AbstractClassLoader;
 import beast.util.PackageManager;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Walter Xie
  */
-public class B2ClassLoader {
+public class B2ClassLoader extends AbstractClassLoader {
 
     final String[] pkgDir;
-
+//    final static String PKG = "beast";
+//    final static String JarPathString = System.getProperty("user.home") +
+//            "/WorkSpace/linguaPhylo/build-lib/beast.jar";
 
     public B2ClassLoader() {
         this(new String[]{"beast"});
@@ -22,22 +23,12 @@ public class B2ClassLoader {
         this.pkgDir = pkgDir;
     }
 
-    public List<String> getChildClassNames(Class<?> cls, String regxContain) {
-        List<String> listCCN = PackageManager.find(cls, pkgDir);
-        // rm itself
-        listCCN.removeIf(s -> s.equals(cls));
-        // contains, if regx not null
-        if (Objects.nonNull(regxContain)) {
-            listCCN.removeIf(s -> !s.contains(regxContain));
-        }
-
-        System.out.println(cls.getSimpleName() + " child class = " + listCCN.size());
-        System.out.println(Arrays.toString(listCCN.toArray()));
-        return (listCCN);
+    @Override
+    protected List<String> getSubcls(Class<?> cls) {
+        return PackageManager.find(cls, pkgDir);
     }
 
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         B2ClassLoader b2loader = new B2ClassLoader();
         List<String> listBON = b2loader.getChildClassNames(beast.core.BEASTObject.class, "evolution");
@@ -50,11 +41,15 @@ public class B2ClassLoader {
 
         b2loader.getChildClassNames(beast.evolution.branchratemodel.BranchRateModel.class, null);
 
-        List<String> listDist = b2loader.getChildClassNames(beast.core.Distribution.class, null);
+        b2loader.getChildClassNames(beast.math.distributions.ParametricDistribution.class, null);
 
         b2loader.getChildClassNames(beast.core.parameter.Parameter.class, null);
 
+        List<String> listDist = b2loader.getChildClassNames(beast.core.Distribution.class, null);
+
         b2loader.getChildClassNames(beast.core.Operator.class, null);
+
+        b2loader.getChildClassNames(beast.evolution.datatype.DataType.class, null);
 
 
  /*
@@ -70,7 +65,6 @@ public class B2ClassLoader {
         b2loader.getChildClassNames(CalculationNode.class, null);
 
 */
-
 
     }
 
