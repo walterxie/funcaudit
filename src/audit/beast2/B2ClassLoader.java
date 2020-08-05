@@ -17,8 +17,8 @@ import java.util.jar.JarFile;
 public class B2ClassLoader extends AbstractClassLoader {
 
 //    final String[] pkgDir;
-    final static String PKG = "beast";
-    final static String JarPathString = System.getProperty("user.home") +
+    final String PKG = "beast";
+    final String JarPathString = System.getProperty("user.home") +
             "/WorkSpace/linguaPhylo/build-lib/beast.jar";
 
 //    public B2ClassLoader() {
@@ -59,8 +59,7 @@ public class B2ClassLoader extends AbstractClassLoader {
 
     public static void main(String[] args) {
 
-        B2ClassLoader b2loader = new B2ClassLoader();
-
+        AbstractClassLoader b2loader = new B2ClassLoader();
         Map<String, List<String>> clsMap = b2loader.getClassMap();
 
         try {
