@@ -30,11 +30,11 @@ public class B2ClassLoader extends AbstractClassLoader {
 //    }
 
     @Override
-    protected List<String> getSubcls(Class<?> cls) {
+    protected List<Class<?>> getSubclasses(Class<?> cls) {
 //        return PackageManager.find(cls, pkgDir); // load all installed pkgs
         Path jarPath = Paths.get(JarPathString);
         JarFile jarF =  getJarFile(jarPath);
-        return getSubcls(cls, jarF, PKG);
+        return getSubclasses(cls, jarF, PKG);
     }
 
     protected Class[] getClasses() {
@@ -60,7 +60,7 @@ public class B2ClassLoader extends AbstractClassLoader {
     public static void main(String[] args) {
 
         AbstractClassLoader b2loader = new B2ClassLoader();
-        Map<String, List<String>> clsMap = b2loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> clsMap = b2loader.getClassMap();
 
         try {
             b2loader.writeMarkdown("beast2.md", "BEAST 2", clsMap);

@@ -18,9 +18,9 @@ public class LPhyClassLoader extends AbstractClassLoader {
             "/WorkSpace/linguaPhylo/build";
 
     @Override
-    protected List<String> getSubcls(Class<?> cls) {
+    protected List<Class<?>> getSubclasses(Class<?> cls) {
         Path dir = Paths.get(CLSPathString);
-        return getSubcls(cls, dir, PKG);
+        return getSubclasses(cls, dir, PKG);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LPhyClassLoader extends AbstractClassLoader {
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyClassLoader();
-        Map<String, List<String>> clsMap = loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> clsMap = loader.getClassMap();
 
         try {
             loader.writeMarkdown("lphy.md", "Lphy", clsMap);

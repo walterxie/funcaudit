@@ -6,6 +6,7 @@
 | lphybeast.tobeast.generators.GTRToBEAST |
 | lphybeast.tobeast.generators.HKYToBEAST |
 | lphybeast.tobeast.generators.ExpToBEAST |
+| lphybeast.tobeast.generators.ExpMarkovChainToBEAST |
 | lphybeast.tobeast.generators.LogNormalMultiToBEAST |
 | lphybeast.tobeast.generators.MultispeciesCoalescentToBEAST |
 | lphybeast.tobeast.generators.DirichletToBEAST |
@@ -23,3 +24,12 @@
 | lphybeast.tobeast.generators.YuleToBEAST |
 | lphybeast.tobeast.generators.F81ToBEAST |
 | lphybeast.tobeast.generators.TN93ToBEAST |
+| **lphybeast.ValueToBEAST** |
+| lphybeast.tobeast.values.IntegerValueToBEAST |
+| lphybeast.tobeast.values.DoubleValueToBEAST |
+| lphybeast.tobeast.values.IntegerArrayValueToBEAST |
+| lphybeast.tobeast.values.TimeTreeToBEAST |
+| lphybeast.tobeast.values.DoubleArray2DValueToBEAST |
+| lphybeast.tobeast.values.MapValueToBEAST |
+| lphybeast.tobeast.values.DoubleArrayValueToBEAST |
+| lphybeast.tobeast.values.AlignmentToBEAST |

@@ -40,13 +40,13 @@ public abstract class AbstractClassLoader {
     }
 
 
-    public List<String> getChildClassNames(Class<?> cls, String regxContain) {
-        List<String> listCCN = getSubcls(cls);
+    public List<Class<?>> getChildClassNames(Class<?> cls, String regxContain) {
+        List<Class<?>> listCCN = getSubclasses(cls);
         // rm itself
         listCCN.removeIf(s -> s.equals(cls));
         // contains, if regx not null
         if (Objects.nonNull(regxContain)) {
-            listCCN.removeIf(s -> !s.contains(regxContain));
+            listCCN.removeIf(s -> !s.getName().contains(regxContain));
         }
 
         System.out.println(cls.getSimpleName() + " child class = " + listCCN.size());
@@ -54,13 +54,13 @@ public abstract class AbstractClassLoader {
         return (listCCN);
     }
 
-    public Map<String, List<String>> getClassMap() {
+    public Map<Class<?>, List<Class<?>>> getClassMap() {
         // insertion-ordered
-        Map<String, List<String>> clsMap = new LinkedHashMap();
+        Map<Class<?>, List<Class<?>>> clsMap = new LinkedHashMap();
 
         for (Class cls : getClasses()) {
-            List<String> listClsNm = getChildClassNames(cls, null);
-            String key = cls.getName();
+            List<Class<?>> listClsNm = getChildClassNames(cls, null);
+            Class<?> key = cls;
             listClsNm.remove(key);
             clsMap.put(key, listClsNm);
         }
@@ -68,20 +68,20 @@ public abstract class AbstractClassLoader {
         return clsMap;
     }
 
-    public void writeMarkdown (String fn, String title, Map<String, List<String>> clsMap) throws FileNotFoundException {
+    public void writeMarkdown (String fn, String title, Map<Class<?>, List<Class<?>>> clsMap) throws FileNotFoundException {
 
         try (PrintWriter out = new PrintWriter(fn)) {
 
             out.println("| " + title + " |");
             out.println("| ------- |");
 
-            for (Map.Entry<String, List<String>> entry : clsMap.entrySet()) {
-                String key = entry.getKey();
-                List<String> classes = entry.getValue();
+            for (Map.Entry<Class<?>, List<Class<?>>> entry : clsMap.entrySet()) {
+                Class<?> key = entry.getKey();
+                List<Class<?>> classes = entry.getValue();
 
-                out.println("| **" + key + "** |");
-                for (String cls : classes) {
-                    out.println("| " + cls + " |");
+                out.println("| **" + key.getName() + "** |");
+                for (Class<?> cls : classes) {
+                    out.println("| " + cls.getName() + " |");
                 }
 
             }
@@ -90,7 +90,7 @@ public abstract class AbstractClassLoader {
 
     protected abstract Class[] getClasses();
 
-    protected abstract List<String> getSubcls(Class<?> cls);
+    protected abstract List<Class<?>> getSubclasses(Class<?> cls);
 
     protected void initClassLoader(String urlSpec) {
         URL[] urls = new URL[0];
@@ -112,12 +112,12 @@ public abstract class AbstractClassLoader {
      * @param pkgname the package to search in
      * @return a list with all the found classnames
      */
-    protected List<String> getSubcls(Class<?> cls, JarFile jarFile, String pkgname) {
+    protected List<Class<?>> getSubclasses(Class<?> cls, JarFile jarFile, String pkgname) {
         Enumeration<JarEntry> e = jarFile.entries();
 
         initClassLoader("jar:file:" + jarFile + "!/");
 
-        List<String> result = new ArrayList<String>();
+        List<Class<?>> result = new ArrayList<>();
         while (e.hasMoreElements()) {
             JarEntry je = e.nextElement();
             if(je.isDirectory() || !je.getName().endsWith(".class")){
@@ -162,10 +162,10 @@ public abstract class AbstractClassLoader {
      * @param pkgname the package to search in
      * @return a list with all the found classnames
      */
-    protected List<String> getSubcls(Class<?> cls, Path buildPath, String pkgname) {
+    protected List<Class<?>> getSubclasses(Class<?> cls, Path buildPath, String pkgname) {
         initClassLoader("file://" + buildPath + "/");
 
-        List<String> result = new ArrayList<String>();
+        List<Class<?>> result = new ArrayList<>();
 //        final PathMatcher filter = FileSystems.getDefault().getPathMatcher("glob:.class");
 
         try (final Stream<Path> stream = Files.walk(buildPath).filter(Files::isRegularFile)) {
@@ -194,7 +194,7 @@ public abstract class AbstractClassLoader {
 
 
     // add class if it is inherited from cls
-    private void addClassName(String className, Class<?> cls, List<String> result, String pkgname) {
+    private void addClassName(String className, Class<?> cls, List<Class<?>> result, String pkgname) {
         // / => .
         if (className.indexOf('/') >= 0)
             className = className.replaceAll("/", ".");
@@ -211,7 +211,8 @@ public abstract class AbstractClassLoader {
                         (cls.isInterface() && PackageManager.hasInterface(cls, clsNew)) ||
                         // must be derived from class
                         (!clsNew.isInterface() && PackageManager.isSubclass(cls, clsNew))) {
-                    result.add(className);
+//                    result.add(className);
+                    result.add(clsNew);
                 }
             } catch (ClassNotFoundException ex) {
                 Log.debug.println("Cannot find class: " + className);

@@ -15,13 +15,13 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
 
     @Override
     protected Class[] getClasses() {
-        return new Class[]{lphybeast.GeneratorToBEAST.class};
+        return new Class[]{lphybeast.GeneratorToBEAST.class,lphybeast.ValueToBEAST.class};
     }
 
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyBEASTClassLoader();
-        Map<String, List<String>> clsMap = loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> clsMap = loader.getClassMap();
 
         try {
             loader.writeMarkdown("lphybeast.md", "LphyBEAST", clsMap);
