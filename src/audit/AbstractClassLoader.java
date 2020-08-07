@@ -54,28 +54,28 @@ public abstract class AbstractClassLoader {
         return (listCCN);
     }
 
-    public Map<Class<?>, List<Class<?>>> getClassMap() {
+    public Map<Class<?>, List<Class<?>>> getInheritanceMap() {
         // insertion-ordered
-        Map<Class<?>, List<Class<?>>> clsMap = new LinkedHashMap();
+        Map<Class<?>, List<Class<?>>> inheritMap = new LinkedHashMap();
 
         for (Class cls : getClasses()) {
             List<Class<?>> listClsNm = getChildClassNames(cls, null);
             Class<?> key = cls;
             listClsNm.remove(key);
-            clsMap.put(key, listClsNm);
+            inheritMap.put(key, listClsNm);
         }
 
-        return clsMap;
+        return inheritMap;
     }
 
-    public void writeMarkdown (String fn, String title, Map<Class<?>, List<Class<?>>> clsMap) throws FileNotFoundException {
+    public void writeMarkdown (String fn, String title, Map<Class<?>, List<Class<?>>> inheritMap) throws FileNotFoundException {
 
         try (PrintWriter out = new PrintWriter(fn)) {
 
             out.println("| " + title + " |");
             out.println("| ------- |");
 
-            for (Map.Entry<Class<?>, List<Class<?>>> entry : clsMap.entrySet()) {
+            for (Map.Entry<Class<?>, List<Class<?>>> entry : inheritMap.entrySet()) {
                 Class<?> key = entry.getKey();
                 List<Class<?>> classes = entry.getValue();
 

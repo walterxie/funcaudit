@@ -60,10 +60,10 @@ public class B2ClassLoader extends AbstractClassLoader {
     public static void main(String[] args) {
 
         AbstractClassLoader b2loader = new B2ClassLoader();
-        Map<Class<?>, List<Class<?>>> clsMap = b2loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> inheritMap = b2loader.getInheritanceMap();
 
         try {
-            b2loader.writeMarkdown("beast2.md", "BEAST 2", clsMap);
+            b2loader.writeMarkdown("beast2.md", "BEAST 2", inheritMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

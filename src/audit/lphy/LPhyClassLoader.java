@@ -25,16 +25,16 @@ public class LPhyClassLoader extends AbstractClassLoader {
 
     @Override
     protected Class[] getClasses() {
-        return new Class[]{lphy.graphicalModel.Generator.class};
+        return new Class[]{lphy.graphicalModel.Generator.class,lphy.graphicalModel.Value.class};
     }
 
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyClassLoader();
-        Map<Class<?>, List<Class<?>>> clsMap = loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> inheritMap = loader.getInheritanceMap();
 
         try {
-            loader.writeMarkdown("lphy.md", "Lphy", clsMap);
+            loader.writeMarkdown("lphy.md", "Lphy", inheritMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

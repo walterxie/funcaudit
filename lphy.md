@@ -2,6 +2,7 @@
 | ------- |
 | **lphy.graphicalModel.Generator** |
 | lphy.core.functions.DoubleArray |
+| lphy.core.functions.ARange |
 | lphy.core.functions.Log |
 | lphy.core.functions.Newick |
 | lphy.core.functions.Range |
@@ -12,6 +13,7 @@
 | lphy.core.functions.CoalescentCorrection |
 | lphy.core.functions.Pow |
 | lphy.core.functions.NTaxa |
+| lphy.core.functions.Map |
 | lphy.core.functions.IntegerArray |
 | lphy.core.functions.Rep |
 | lphy.core.functions.RootAge |
@@ -29,3 +31,17 @@
 | lphy.evolution.substitutionmodel.JukesCantor |
 | lphy.evolution.substitutionmodel.K80 |
 | lphy.evolution.substitutionmodel.HKY |
+| **lphy.graphicalModel.Value** |
+| lphy.graphicalModel.RandomVariable |
+| lphy.graphicalModel.types.StringValue |
+| lphy.graphicalModel.types.IntegerValue |
+| lphy.graphicalModel.types.NumberValue |
+| lphy.graphicalModel.types.NumberArrayValue |
+| lphy.graphicalModel.types.StringArray2DValue |
+| lphy.graphicalModel.types.StringArrayValue |
+| lphy.graphicalModel.types.DoubleArrayValue |
+| lphy.graphicalModel.types.IntegerArray2DValue |
+| lphy.graphicalModel.types.DoubleArray2DValue |
+| lphy.graphicalModel.types.IntegerArrayValue |
+| lphy.graphicalModel.types.DoubleValue |
+| lphy.graphicalModel.types.WrappedDoubleValue |

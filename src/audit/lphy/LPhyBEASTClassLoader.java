@@ -21,10 +21,10 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyBEASTClassLoader();
-        Map<Class<?>, List<Class<?>>> clsMap = loader.getClassMap();
+        Map<Class<?>, List<Class<?>>> inheritMap = loader.getInheritanceMap();
 
         try {
-            loader.writeMarkdown("lphybeast.md", "LphyBEAST", clsMap);
+            loader.writeMarkdown("lphybeast.md", "LphyBEAST", inheritMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
