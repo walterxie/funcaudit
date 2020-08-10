@@ -70,8 +70,8 @@ public class LPhyBEASTClassHelper {
         assert title.length == 3;
         try (PrintWriter out = new PrintWriter(fn)) {
 
-            out.println("| " + title[0] + " | " + title[1] + " | " + title[2] + " |");
-            out.println("| ------- | ------- | ------- |");
+            out.println(title[0] + " | " + title[1] + " | " + title[2]);
+            out.println("--- | --- | ---");
 
             // left join to inheritMap
             List<Class<?>> cls2List = new ArrayList<>();
@@ -80,7 +80,7 @@ public class LPhyBEASTClassHelper {
                 Class<?> key = entry.getKey();
                 List<Class<?>> classes = entry.getValue();
 
-                out.println("| **" + key.getName() + "** |  |  |");
+                out.println("**" + key.getName() + "** |  |  ");
                 for (Class<?> cls : classes) {
                     String col2 = "";
                     Class<?> cls2 = lphyClassMap.get(cls);
@@ -92,20 +92,20 @@ public class LPhyBEASTClassHelper {
                     if (cls3 != null)
                         col3 = cls3.getName();
 
-                    out.println("| " + cls.getName() + " | " + col2 + " | " + col3 + " |");
+                    out.println(cls.getName() + " | " + col2 + " | " + col3 );
 
                     cls2List.add(cls2);
                     cls3List.add(cls3);
                 }
             }
 
-            out.println("| **Suspected missing parser** | **Implemented LPhy** | **Implemented BEAST** |");
+            out.println("**Suspected missing parser** | **Implemented LPhy** | **Implemented BEAST**");
 
             // add the rest to make union
             List<Class<?>> restList = getExcludedClassList(cls2List, lphyInheritMap);
             if (restList.size() > 0) {
                 for (Class<?> cls : restList) {
-                    out.println("|  | " + cls.getName() + " |  |");
+                    out.println("|  | " + cls.getName() + " | ");
                 }
             }//TODO BEAST rest of matching LPhy
 
@@ -113,7 +113,7 @@ public class LPhyBEASTClassHelper {
             restList = getExcludedClassList(cls3List, beastInheritMap);
             if (restList.size() > 0) {
                 for (Class<?> cls : restList) {
-                    out.println("|  |  | " + cls.getName() + " |");
+                    out.println("|  |  | " + cls.getName() );
                 }
             }
         }
