@@ -1,125 +1,627 @@
-LPhyBEAST | LPhy | BEAST 2
---- | --- | ---
-**lphybeast.GeneratorToBEAST** |  |  
-lphybeast.tobeast.generators.SkylineToBSP | lphy.evolution.coalescent.SkylineCoalescent | beast.evolution.tree.coalescent.BayesianSkyline
-lphybeast.tobeast.generators.SerialCoalescentToBEAST | lphy.evolution.coalescent.SerialCoalescent | beast.evolution.tree.coalescent.Coalescent
-lphybeast.tobeast.generators.GTRToBEAST | lphy.evolution.substitutionmodel.GTR | substmodels.nucleotide.GTR
-lphybeast.tobeast.generators.HKYToBEAST | lphy.evolution.substitutionmodel.HKY | beast.evolution.substitutionmodel.HKY
-lphybeast.tobeast.generators.ExpToBEAST | lphy.core.distributions.Exp | beast.math.distributions.Prior
-lphybeast.tobeast.generators.ExpMarkovChainToBEAST | lphy.core.distributions.ExpMarkovChain | beast.math.distributions.MarkovChainDistribution
-lphybeast.tobeast.generators.LogNormalMultiToBEAST | lphy.core.distributions.LogNormalMulti | beast.math.distributions.Prior
-lphybeast.tobeast.generators.MultispeciesCoalescentToBEAST | lphy.evolution.coalescent.MultispeciesCoalescent | beast.evolution.speciation.GeneTreeForSpeciesTreeDistribution
-lphybeast.tobeast.generators.DirichletToBEAST | lphy.core.distributions.Dirichlet | beast.math.distributions.Prior
-lphybeast.tobeast.generators.BirthDeathSampleTreeDTToBEAST | lphy.evolution.birthdeath.BirthDeathSamplingTreeDT | beast.evolution.speciation.BirthDeathGernhard08Model
-lphybeast.tobeast.generators.StructuredCoalescentToMascot | lphy.evolution.coalescent.StructuredCoalescent | beast.mascot.distribution.Mascot
-lphybeast.tobeast.generators.GammaToBEAST | lphy.core.distributions.Gamma | beast.math.distributions.Prior
-lphybeast.tobeast.generators.BetaToBEAST | lphy.core.distributions.Beta | beast.math.distributions.Prior
-lphybeast.tobeast.generators.LogNormalToBEAST | lphy.core.distributions.LogNormal | beast.math.distributions.Prior
-lphybeast.tobeast.generators.K80ToBEAST | lphy.evolution.substitutionmodel.K80 | beast.evolution.substitutionmodel.HKY
-lphybeast.tobeast.generators.NormalToBEAST | lphy.core.distributions.Normal | beast.math.distributions.Prior
-lphybeast.tobeast.generators.NormalMultiToBEAST | lphy.core.distributions.NormalMulti | beast.math.distributions.Prior
-lphybeast.tobeast.generators.CoalescentToBEAST | lphy.evolution.coalescent.Coalescent | beast.evolution.tree.coalescent.Coalescent
-lphybeast.tobeast.generators.PhyloCTMCToBEAST | lphy.evolution.likelihood.PhyloCTMC | beast.evolution.likelihood.TreeLikelihood
-lphybeast.tobeast.generators.JukesCantorToBEAST | lphy.evolution.substitutionmodel.JukesCantor | beast.evolution.substitutionmodel.JukesCantor
-lphybeast.tobeast.generators.YuleToBEAST | lphy.evolution.birthdeath.Yule | beast.evolution.speciation.YuleModel
-lphybeast.tobeast.generators.F81ToBEAST | lphy.evolution.substitutionmodel.F81 | beast.evolution.substitutionmodel.HKY
-lphybeast.tobeast.generators.TN93ToBEAST | lphy.evolution.substitutionmodel.TN93 | beast.evolution.substitutionmodel.TN93
-**lphybeast.ValueToBEAST** |  |  
-lphybeast.tobeast.values.IntegerValueToBEAST | java.lang.Integer | beast.core.parameter.IntegerParameter
-lphybeast.tobeast.values.DoubleValueToBEAST | java.lang.Double | beast.core.parameter.RealParameter
-lphybeast.tobeast.values.IntegerArrayValueToBEAST | [Ljava.lang.Integer; | beast.core.parameter.IntegerParameter
-lphybeast.tobeast.values.TimeTreeToBEAST | lphy.evolution.tree.TimeTree | beast.util.TreeParser
-lphybeast.tobeast.values.DoubleArray2DValueToBEAST | [[Ljava.lang.Double; | beast.core.parameter.RealParameter
-lphybeast.tobeast.values.MapValueToBEAST | java.util.Map | beast.core.parameter.RealParameter
-lphybeast.tobeast.values.DoubleArrayValueToBEAST | [Ljava.lang.Double; | beast.core.parameter.RealParameter
-lphybeast.tobeast.values.AlignmentToBEAST | lphy.evolution.alignment.Alignment | beast.evolution.alignment.Alignment
-**Suspected missing parser** | **Implemented LPhy** | **Implemented BEAST**
-|  | lphy.core.functions.DoubleArray | 
-|  | lphy.core.functions.ARange | 
-|  | lphy.core.functions.Log | 
-|  | lphy.core.functions.Newick | 
-|  | lphy.core.functions.Range | 
-|  | lphy.core.functions.Exp | 
-|  | lphy.core.functions.NodeCount | 
-|  | lphy.core.functions.BinaryRateMatrix | 
-|  | lphy.core.functions.MigrationCount | 
-|  | lphy.core.functions.CoalescentCorrection | 
-|  | lphy.core.functions.Pow | 
-|  | lphy.core.functions.NTaxa | 
-|  | lphy.core.functions.Map | 
-|  | lphy.core.functions.IntegerArray | 
-|  | lphy.core.functions.Rep | 
-|  | lphy.core.functions.RootAge | 
-|  | lphy.core.functions.Floor | 
-|  | lphy.core.functions.MigrationMatrix | 
-|  | lphy.core.lightweight.GenerativeDistributionAdapter | 
-|  | lphy.graphicalModel.types.WrappedDoubleValue$WrappedDoubleGenerator | 
-|  | lphy.toroidalDiffusion.DihedralAngleDiffusionMatrix | 
-|  | lphy.parser.ExpressionNode1Arg | 
-|  | lphy.parser.ExpressionNode2Args | 
-|  | lphy.parser.ExpressionNodeWrapper | 
-|  | lphy.graphicalModel.RandomVariable | 
-|  | lphy.graphicalModel.types.StringValue | 
-|  | lphy.graphicalModel.types.IntegerValue | 
-|  | lphy.graphicalModel.types.NumberValue | 
-|  | lphy.graphicalModel.types.NumberArrayValue | 
-|  | lphy.graphicalModel.types.StringArray2DValue | 
-|  | lphy.graphicalModel.types.StringArrayValue | 
-|  | lphy.graphicalModel.types.DoubleArrayValue | 
-|  | lphy.graphicalModel.types.IntegerArray2DValue | 
-|  | lphy.graphicalModel.types.DoubleArray2DValue | 
-|  | lphy.graphicalModel.types.IntegerArrayValue | 
-|  | lphy.graphicalModel.types.DoubleValue | 
-|  | lphy.graphicalModel.types.WrappedDoubleValue | 
-|  |  | beast.app.seqgen.SimulatedAlignment
-|  |  | beast.evolution.alignment.AscertainedAlignment
-|  |  | beast.evolution.alignment.FilteredAlignment
-|  |  | beast.evolution.substitutionmodel.BinaryCovarion
-|  |  | beast.evolution.substitutionmodel.Blosum62
-|  |  | beast.evolution.substitutionmodel.CPREV
-|  |  | beast.evolution.substitutionmodel.Dayhoff
-|  |  | beast.evolution.substitutionmodel.GTR
-|  |  | beast.evolution.substitutionmodel.GeneralSubstitutionModel
-|  |  | beast.evolution.substitutionmodel.JTT
-|  |  | beast.evolution.substitutionmodel.MTREV
-|  |  | beast.evolution.substitutionmodel.MutationDeathModel
-|  |  | beast.evolution.substitutionmodel.SYM
-|  |  | beast.evolution.substitutionmodel.TIM
-|  |  | beast.evolution.substitutionmodel.TVM
-|  |  | beast.evolution.substitutionmodel.WAG
-|  |  | beast.evolution.sitemodel.SiteModel
-|  |  | beast.evolution.branchratemodel.RandomLocalClockModel
-|  |  | beast.evolution.branchratemodel.StrictClockModel
-|  |  | beast.evolution.branchratemodel.UCRelaxedClockModel
-|  |  | beast.math.distributions.Beta
-|  |  | beast.math.distributions.ChiSquare
-|  |  | beast.math.distributions.Dirichlet
-|  |  | beast.math.distributions.Exponential
-|  |  | beast.math.distributions.Gamma
-|  |  | beast.math.distributions.InverseGamma
-|  |  | beast.math.distributions.LaplaceDistribution
-|  |  | beast.math.distributions.LogNormalDistributionModel
-|  |  | beast.math.distributions.Normal
-|  |  | beast.math.distributions.OneOnX
-|  |  | beast.math.distributions.Poisson
-|  |  | beast.math.distributions.Uniform
-|  |  | beast.core.parameter.BooleanParameter
-|  |  | beast.core.parameter.GeneralParameterList$QuietParameter
-|  |  | beast.core.util.CompoundDistribution
-|  |  | beast.evolution.likelihood.BeagleTreeLikelihood
-|  |  | beast.evolution.likelihood.GenericTreeLikelihood
-|  |  | beast.evolution.likelihood.ThreadedTreeLikelihood
-|  |  | beast.evolution.speciation.CalibratedBirthDeathModel
-|  |  | beast.evolution.speciation.CalibratedYuleModel
-|  |  | beast.evolution.speciation.SpeciesTreeDistribution
-|  |  | beast.evolution.speciation.SpeciesTreePopFunction
-|  |  | beast.evolution.speciation.SpeciesTreePrior
-|  |  | beast.evolution.tree.TreeDistribution
-|  |  | beast.math.distributions.MRCAPrior
-|  |  | beast.evolution.datatype.Aminoacid
-|  |  | beast.evolution.datatype.Binary
-|  |  | beast.evolution.datatype.IntegerData
-|  |  | beast.evolution.datatype.Nucleotide
-|  |  | beast.evolution.datatype.StandardData
-|  |  | beast.evolution.datatype.TwoStateCovarion
-|  |  | beast.evolution.datatype.UserDataType
+<table>
+<thead>
+<tr>
+<th>LPhyBEAST</th>
+<th>LPhy</th>
+<th>BEAST 2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><b>lphybeast.GeneratorToBEAST</b></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.SkylineToBSP</td>
+<td>lphy.evolution.coalescent.SkylineCoalescent</td>
+<td>beast.evolution.tree.coalescent.BayesianSkyline</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.SerialCoalescentToBEAST</td>
+<td>lphy.evolution.coalescent.SerialCoalescent</td>
+<td>beast.evolution.tree.coalescent.Coalescent</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.GTRToBEAST</td>
+<td>lphy.evolution.substitutionmodel.GTR</td>
+<td>substmodels.nucleotide.GTR</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.HKYToBEAST</td>
+<td>lphy.evolution.substitutionmodel.HKY</td>
+<td>beast.evolution.substitutionmodel.HKY</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.ExpToBEAST</td>
+<td>lphy.core.distributions.Exp</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.ExpMarkovChainToBEAST</td>
+<td>lphy.core.distributions.ExpMarkovChain</td>
+<td>beast.math.distributions.MarkovChainDistribution</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.LogNormalMultiToBEAST</td>
+<td>lphy.core.distributions.LogNormalMulti</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.MultispeciesCoalescentToBEAST</td>
+<td>lphy.evolution.coalescent.MultispeciesCoalescent</td>
+<td>beast.evolution.speciation.GeneTreeForSpeciesTreeDistribution</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.DirichletToBEAST</td>
+<td>lphy.core.distributions.Dirichlet</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.BirthDeathSampleTreeDTToBEAST</td>
+<td>lphy.evolution.birthdeath.BirthDeathSamplingTreeDT</td>
+<td>beast.evolution.speciation.BirthDeathGernhard08Model</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.StructuredCoalescentToMascot</td>
+<td>lphy.evolution.coalescent.StructuredCoalescent</td>
+<td>beast.mascot.distribution.Mascot</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.GammaToBEAST</td>
+<td>lphy.core.distributions.Gamma</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.BetaToBEAST</td>
+<td>lphy.core.distributions.Beta</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.LogNormalToBEAST</td>
+<td>lphy.core.distributions.LogNormal</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.K80ToBEAST</td>
+<td>lphy.evolution.substitutionmodel.K80</td>
+<td>beast.evolution.substitutionmodel.HKY</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.NormalToBEAST</td>
+<td>lphy.core.distributions.Normal</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.NormalMultiToBEAST</td>
+<td>lphy.core.distributions.NormalMulti</td>
+<td>beast.math.distributions.Prior</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.CoalescentToBEAST</td>
+<td>lphy.evolution.coalescent.Coalescent</td>
+<td>beast.evolution.tree.coalescent.Coalescent</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.PhyloCTMCToBEAST</td>
+<td>lphy.evolution.likelihood.PhyloCTMC</td>
+<td>beast.evolution.likelihood.TreeLikelihood</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.JukesCantorToBEAST</td>
+<td>lphy.evolution.substitutionmodel.JukesCantor</td>
+<td>beast.evolution.substitutionmodel.JukesCantor</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.YuleToBEAST</td>
+<td>lphy.evolution.birthdeath.Yule</td>
+<td>beast.evolution.speciation.YuleModel</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.F81ToBEAST</td>
+<td>lphy.evolution.substitutionmodel.F81</td>
+<td>beast.evolution.substitutionmodel.HKY</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.generators.TN93ToBEAST</td>
+<td>lphy.evolution.substitutionmodel.TN93</td>
+<td>beast.evolution.substitutionmodel.TN93</td>
+</tr>
+<tr>
+<td><b>lphybeast.ValueToBEAST</b></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.IntegerValueToBEAST</td>
+<td>java.lang.Integer</td>
+<td>beast.core.parameter.IntegerParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.DoubleValueToBEAST</td>
+<td>java.lang.Double</td>
+<td>beast.core.parameter.RealParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.IntegerArrayValueToBEAST</td>
+<td>[Ljava.lang.Integer;</td>
+<td>beast.core.parameter.IntegerParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.TimeTreeToBEAST</td>
+<td>lphy.evolution.tree.TimeTree</td>
+<td>beast.util.TreeParser</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.DoubleArray2DValueToBEAST</td>
+<td>[[Ljava.lang.Double;</td>
+<td>beast.core.parameter.RealParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.MapValueToBEAST</td>
+<td>java.util.Map</td>
+<td>beast.core.parameter.RealParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.DoubleArrayValueToBEAST</td>
+<td>[Ljava.lang.Double;</td>
+<td>beast.core.parameter.RealParameter</td>
+</tr>
+<tr>
+<td>lphybeast.tobeast.values.AlignmentToBEAST</td>
+<td>lphy.evolution.alignment.Alignment</td>
+<td>beast.evolution.alignment.Alignment</td>
+</tr>
+<tr>
+<td><b>Suspected missing parser</b></td>
+<td><b>Implemented LPhy</b></td>
+<td><b>Implemented BEAST</b></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.DoubleArray</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.ARange</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Log</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Newick</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Range</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Exp</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.NodeCount</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.BinaryRateMatrix</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.MigrationCount</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.CoalescentCorrection</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Pow</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.NTaxa</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Map</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.IntegerArray</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Rep</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.RootAge</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.Floor</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.functions.MigrationMatrix</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.core.lightweight.GenerativeDistributionAdapter</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.WrappedDoubleValue$WrappedDoubleGenerator</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.toroidalDiffusion.DihedralAngleDiffusionMatrix</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.parser.ExpressionNode1Arg</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.parser.ExpressionNode2Args</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.parser.ExpressionNodeWrapper</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.RandomVariable</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.StringValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.IntegerValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.NumberValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.NumberArrayValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.StringArray2DValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.StringArrayValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.DoubleArrayValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.IntegerArray2DValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.DoubleArray2DValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.IntegerArrayValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.DoubleValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>lphy.graphicalModel.types.WrappedDoubleValue</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.app.seqgen.SimulatedAlignment</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.alignment.AscertainedAlignment</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.alignment.FilteredAlignment</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.BinaryCovarion</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.Blosum62</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.CPREV</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.Dayhoff</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.GTR</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.GeneralSubstitutionModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.JTT</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.MTREV</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.MutationDeathModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.SYM</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.TIM</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.TVM</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.substitutionmodel.WAG</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.sitemodel.SiteModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.branchratemodel.RandomLocalClockModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.branchratemodel.StrictClockModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.branchratemodel.UCRelaxedClockModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Beta</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.ChiSquare</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Dirichlet</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Exponential</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Gamma</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.InverseGamma</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.LaplaceDistribution</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.LogNormalDistributionModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Normal</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.OneOnX</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Poisson</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.Uniform</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.core.parameter.BooleanParameter</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.core.parameter.GeneralParameterList$QuietParameter</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.core.util.CompoundDistribution</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.likelihood.BeagleTreeLikelihood</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.likelihood.GenericTreeLikelihood</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.likelihood.ThreadedTreeLikelihood</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.speciation.CalibratedBirthDeathModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.speciation.CalibratedYuleModel</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.speciation.SpeciesTreeDistribution</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.speciation.SpeciesTreePopFunction</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.speciation.SpeciesTreePrior</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.tree.TreeDistribution</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.math.distributions.MRCAPrior</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.Aminoacid</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.Binary</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.IntegerData</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.Nucleotide</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.StandardData</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.TwoStateCovarion</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>beast.evolution.datatype.UserDataType</td>
+</tr>
+</tbody>
+</table>
