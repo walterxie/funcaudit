@@ -1,6 +1,6 @@
 package audit.lphy;
 
-import beast.core.BEASTInterface;
+import lphybeast.BEASTContext;
 import lphybeast.GeneratorToBEAST;
 import lphybeast.ValueToBEAST;
 
@@ -46,10 +46,12 @@ public class LPhyBEASTClassHelper {
     public Map<Class<?>, Class<?>> createBEASTClassMap(Map<Class<?>, List<Class<?>>> lphybeInheritMap) {
         Map<Class<?>, Class<?>> clsMap = new LinkedHashMap();
 
+        BEASTContext context = new BEASTContext(null);
+
         for (Map.Entry<Class<?>, List<Class<?>>> entry : lphybeInheritMap.entrySet()) {
 
             for (Class<?> lphybeast : entry.getValue()) {
-                Class<BEASTInterface> beast = getBEASTClass(lphybeast);
+                Class<?> beast = getBEASTClass(lphybeast);
                 assert beast != null;
 
                 clsMap.put(lphybeast, beast);
@@ -165,7 +167,7 @@ public class LPhyBEASTClassHelper {
         return (Class<?>) lphy;
     }
 
-    private Class<BEASTInterface> getBEASTClass(Class<?> lphybeast){
+    private Class<?> getBEASTClass(Class<?> lphybeast){
         String methodName;
         if (GeneratorToBEAST.class.isAssignableFrom(lphybeast) || ValueToBEAST.class.isAssignableFrom(lphybeast)) {
             methodName = "getBEASTClass";
@@ -174,7 +176,7 @@ public class LPhyBEASTClassHelper {
         }
 
         Object beast = getObjectFromMethod(lphybeast, methodName);
-        return (Class<BEASTInterface>) beast;
+        return (Class<?>) beast;
     }
 
 

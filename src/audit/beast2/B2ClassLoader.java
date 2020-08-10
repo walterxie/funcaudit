@@ -1,8 +1,6 @@
 package audit.beast2;
 
 import audit.AbstractClassLoader;
-import beast.evolution.alignment.Alignment;
-import beast.evolution.substitutionmodel.SubstitutionModel;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -31,14 +29,16 @@ public class B2ClassLoader extends AbstractClassLoader {
     }
 
     protected Class[] getClasses() {
-        return new Class[]{Alignment.class, SubstitutionModel.class,
-            beast.evolution.sitemodel.SiteModelInterface.class,
-            beast.evolution.branchratemodel.BranchRateModel.class,
-            beast.math.distributions.ParametricDistribution.class,
-            beast.core.parameter.Parameter.class,
-            beast.core.Distribution.class
+        return new Class[]{
+//                Alignment.class, SubstitutionModel.class,
+//            beast.evolution.sitemodel.SiteModelInterface.class,
+//            beast.evolution.branchratemodel.BranchRateModel.class,
+//            beast.core.parameter.Parameter.class,
+                beast.core.CalculationNode.class,
+                beast.core.Distribution.class, beast.core.Function.class
     };}
  /*
+             beast.math.distributions.ParametricDistribution.class,
              beast.evolution.datatype.DataType.class
  b2loader.getChildClassNames(beast.core.BEASTObject.class, "evolution");
         beast.core.Operator.class,

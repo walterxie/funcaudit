@@ -1,7 +1,6 @@
 package audit;
 
 import beast.core.util.Log;
-import beast.util.PackageManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -209,13 +208,10 @@ public abstract class AbstractClassLoader {
             try {
                 Class clsNew = Class.forName(className, false, loader);
 
-                // no abstract classes
+                // no interface and abstract classes
                 if (!Modifier.isAbstract(clsNew.getModifiers()) &&
-                        // must implement interface
-                        (cls.isInterface() && PackageManager.hasInterface(cls, clsNew)) ||
-                        // must be derived from class
-                        (!clsNew.isInterface() && PackageManager.isSubclass(cls, clsNew))) {
-//                    result.add(className);
+                        !Modifier.isInterface(clsNew.getModifiers()) &&
+                        cls.isAssignableFrom(clsNew) ) {
                     result.add(clsNew);
                 }
             } catch (ClassNotFoundException ex) {
