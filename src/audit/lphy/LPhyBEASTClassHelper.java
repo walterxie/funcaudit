@@ -1,5 +1,6 @@
 package audit.lphy;
 
+import beast.core.BEASTInterface;
 import lphybeast.GeneratorToBEAST;
 import lphybeast.ValueToBEAST;
 
@@ -27,7 +28,7 @@ public class LPhyBEASTClassHelper {
      * @param lphybeInheritMap  lphybeast
      * @return  map of Class<?> lphybeast <=> Class<?> lphy
      */
-    public Map<Class<?>, Class<?>> createClassMap(Map<Class<?>, List<Class<?>>> lphybeInheritMap) {
+    public Map<Class<?>, Class<?>> createLPhyClassMap(Map<Class<?>, List<Class<?>>> lphybeInheritMap) {
         Map<Class<?>, Class<?>> clsMap = new LinkedHashMap();
 
         for (Map.Entry<Class<?>, List<Class<?>>> entry : lphybeInheritMap.entrySet()) {
@@ -42,45 +43,79 @@ public class LPhyBEASTClassHelper {
         return clsMap;
     }
 
+    public Map<Class<?>, Class<?>> createBEASTClassMap(Map<Class<?>, List<Class<?>>> lphybeInheritMap) {
+        Map<Class<?>, Class<?>> clsMap = new LinkedHashMap();
+
+        for (Map.Entry<Class<?>, List<Class<?>>> entry : lphybeInheritMap.entrySet()) {
+
+            for (Class<?> lphybeast : entry.getValue()) {
+                Class<BEASTInterface> beast = getBEASTClass(lphybeast);
+                assert beast != null;
+
+                clsMap.put(lphybeast, beast);
+            }
+        }
+        return clsMap;
+    }
+
     // outer_join
-    public void writeMarkdown(String fn, String[] title, final Map<Class<?>, List<Class<?>>> inheritMap,
-                              final Map<Class<?>, List<Class<?>>> inheritMap2, final Map<Class<?>, Class<?>> clsMap)
+    public void writeMarkdown(String fn, String[] title,
+                              final Map<Class<?>, List<Class<?>>> lphybeastInheritMap,
+                              final Map<Class<?>, List<Class<?>>> lphyInheritMap,
+                              final Map<Class<?>, List<Class<?>>> beastInheritMap,
+                              final Map<Class<?>, Class<?>> lphyClassMap,
+                              final Map<Class<?>, Class<?>> beastClassMap)
             throws FileNotFoundException {
 
-        assert title.length >= 2;
+        assert title.length == 3;
         try (PrintWriter out = new PrintWriter(fn)) {
 
-            out.println("| " + title[0] + " | " + title[1] + " |");
-            out.println("| ------- | ------- |");
+            out.println("| " + title[0] + " | " + title[1] + " | " + title[2] + " |");
+            out.println("| ------- | ------- | ------- |");
 
             // left join to inheritMap
             List<Class<?>> cls2List = new ArrayList<>();
-            for (Map.Entry<Class<?>, List<Class<?>>> entry : inheritMap.entrySet()) {
+            List<Class<?>> cls3List = new ArrayList<>();
+            for (Map.Entry<Class<?>, List<Class<?>>> entry : lphybeastInheritMap.entrySet()) {
                 Class<?> key = entry.getKey();
                 List<Class<?>> classes = entry.getValue();
 
-                out.println("| **" + key.getName() + "** |  |");
+                out.println("| **" + key.getName() + "** |  |  |");
                 for (Class<?> cls : classes) {
                     String col2 = "";
-                    Class<?> cls2 = clsMap.get(cls);
-                    if (cls2 != null) {
+                    Class<?> cls2 = lphyClassMap.get(cls);
+                    if (cls2 != null)
                         col2 = cls2.getName();
-                    }
-                    out.println("| " + cls.getName() + " | " + col2 + " |");
+
+                    String col3 = "";
+                    Class<?> cls3 = beastClassMap.get(cls);
+                    if (cls3 != null)
+                        col3 = cls3.getName();
+
+                    out.println("| " + cls.getName() + " | " + col2 + " | " + col3 + " |");
 
                     cls2List.add(cls2);
+                    cls3List.add(cls3);
                 }
             }
+
+            out.println("| **Suspected missing parser** | **Implemented LPhy** | **Implemented BEAST** |");
 
             // add the rest to make union
-            List<Class<?>> restList = getExcludedClassList(cls2List, inheritMap2);
+            List<Class<?>> restList = getExcludedClassList(cls2List, lphyInheritMap);
             if (restList.size() > 0) {
-                out.println("| **Suspected missing parser** | **Implemented LPhy** |");
                 for (Class<?> cls : restList) {
-                    out.println("|  | " + cls.getName() + " |");
+                    out.println("|  | " + cls.getName() + " |  |");
+                }
+            }//TODO BEAST rest of matching LPhy
+
+            //TODO make better BEAST rest
+            restList = getExcludedClassList(cls3List, beastInheritMap);
+            if (restList.size() > 0) {
+                for (Class<?> cls : restList) {
+                    out.println("|  |  | " + cls.getName() + " |");
                 }
             }
-
         }
     }
 
@@ -115,25 +150,36 @@ public class LPhyBEASTClassHelper {
             throw new UnsupportedOperationException("Cannot handle " + lphybeast);
         }
 
+        Object lphy = getObjectFromMethod(lphybeast, methodName);
+        return (Class<?>) lphy;
+    }
+
+    private Class<BEASTInterface> getBEASTClass(Class<?> lphybeast){
+        String methodName;
+        if (GeneratorToBEAST.class.isAssignableFrom(lphybeast) || ValueToBEAST.class.isAssignableFrom(lphybeast)) {
+            methodName = "getBEASTClass";
+        } else {
+            throw new UnsupportedOperationException("Cannot handle " + lphybeast);
+        }
+
+        Object beast = getObjectFromMethod(lphybeast, methodName);
+        return (Class<BEASTInterface>) beast;
+    }
+
+
+    private Object getObjectFromMethod(Class<?> lphybeast, String methodName) {
         Method method = null;
-        Object lphy = null;
+        Object obj = null;
         try {
             method = lphybeast.getMethod(methodName);
             // need an instance of it
-            lphy = method.invoke(lphybeast.getConstructor().newInstance());
+            obj = method.invoke(lphybeast.getConstructor().newInstance());
         } catch (Exception e) {
             System.err.println(lphybeast);
             System.err.println(method);
             e.printStackTrace();
         }
-        return (Class<?>) lphy;
+        return obj;
     }
-
-
-
-//    public BEASTInterface getBEASTClass(GeneratorToBEAST lphybeast){
-//        return lphybeast.generatorToBEAST().getClass();
-//    }
-
 
 }

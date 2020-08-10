@@ -19,7 +19,7 @@ public class B2ClassLoader extends AbstractClassLoader {
 //    final String[] pkgDir;
     final String PKG = "beast";
     final String JarPathString = System.getProperty("user.home") +
-            "/WorkSpace/linguaPhylo/build-lib/beast.jar";
+            "/WorkSpace/linguaPhylo/lphybeast/lib/beast.jar";
 
 //    public B2ClassLoader() {
 //        this(new String[]{"beast"});
