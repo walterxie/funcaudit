@@ -24,7 +24,7 @@ public class LPhyClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected Class[] getClasses() {
+    protected Class[] getClasses() { // TODO excl: lphy.core.functions? lphy.parser? lphy.graphicalModel.types?
         return new Class[]{lphy.graphicalModel.Generator.class,lphy.graphicalModel.Value.class};
     }
 

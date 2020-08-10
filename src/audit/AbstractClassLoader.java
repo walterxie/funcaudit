@@ -103,7 +103,7 @@ public abstract class AbstractClassLoader {
     }
 
 
-    /**
+    /**TODO multiple jars
      * Checks the given package for classes that inherited from the given class,
      * in case it's a class, or implement this class, in case it's an interface.
      *
@@ -190,6 +190,10 @@ public abstract class AbstractClassLoader {
         }
 
         return result;
+    }
+
+    protected void excludeSubclasses(String pkgname) {
+//TODO excl classes from give pkg names
     }
 
 

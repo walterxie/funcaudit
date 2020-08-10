@@ -21,13 +21,6 @@ public class B2ClassLoader extends AbstractClassLoader {
     final String JarPathString = System.getProperty("user.home") +
             "/WorkSpace/linguaPhylo/lphybeast/lib/beast.jar";
 
-//    public B2ClassLoader() {
-//        this(new String[]{"beast"});
-//    }
-//
-//    public B2ClassLoader(String[] pkgDir) {
-//        this.pkgDir = pkgDir;
-//    }
 
     @Override
     protected List<Class<?>> getSubclasses(Class<?> cls) {
@@ -43,10 +36,10 @@ public class B2ClassLoader extends AbstractClassLoader {
             beast.evolution.branchratemodel.BranchRateModel.class,
             beast.math.distributions.ParametricDistribution.class,
             beast.core.parameter.Parameter.class,
-            beast.core.Distribution.class,
-            beast.evolution.datatype.DataType.class
+            beast.core.Distribution.class
     };}
  /*
+             beast.evolution.datatype.DataType.class
  b2loader.getChildClassNames(beast.core.BEASTObject.class, "evolution");
         beast.core.Operator.class,
         b2loader.getChildClassNames(TreeDistribution.class, null);
