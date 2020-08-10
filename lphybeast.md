@@ -1,4 +1,4 @@
-<table>
+<table border="1" width="100%" style="margin: 0px;">
 <thead>
 <tr>
 <th>LPhyBEAST</th>

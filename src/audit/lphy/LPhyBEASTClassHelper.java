@@ -71,7 +71,8 @@ public class LPhyBEASTClassHelper {
         try (PrintWriter out = new PrintWriter(fn)) {
 
             // header
-            out.println("<table>\n<thead>\n<tr>\n" +
+            out.println("<table border=\"1\" width=\"100%\" style=\"margin: 0px;\">");
+            out.println("<thead>\n<tr>\n" +
                     "<th>" + title[0] + "</th>\n" +
                     "<th>" + title[1] + "</th>\n" +
                     "<th>" + title[2] + "</th>\n" +
