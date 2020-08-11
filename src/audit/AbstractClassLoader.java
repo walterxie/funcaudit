@@ -91,6 +91,12 @@ public abstract class AbstractClassLoader {
 
     protected abstract List<Class<?>> getSubclasses(Class<?> cls);
 
+    // give the parent class/interface to exclude it and child classes from the list
+    protected abstract Class[] getExclClasses();
+
+    protected abstract String[] getExclPackages();
+
+
     protected void initClassLoader(String urlSpec) {
         URL[] urls = new URL[0];
         try {
@@ -191,8 +197,17 @@ public abstract class AbstractClassLoader {
         return result;
     }
 
-    protected void excludeSubclasses(String pkgname) {
-//TODO excl classes from give pkg names
+    // if this is either the same as, or is a superclass or superinterface, of given cls
+    private boolean isExcluded(Class<?> cls) {
+        for (Class exclCls : getExclClasses()) {
+            if (exclCls.isAssignableFrom(cls))
+                return true;
+        }
+        for (String exclPkg : getExclPackages()) {
+            if (cls.getName().startsWith(exclPkg))
+                return true;
+        }
+        return false;
     }
 
 
@@ -208,10 +223,11 @@ public abstract class AbstractClassLoader {
             try {
                 Class clsNew = Class.forName(className, false, loader);
 
-                // no interface and abstract classes
+                // no interface, abstract class, inner class
                 if (!Modifier.isAbstract(clsNew.getModifiers()) &&
                         !Modifier.isInterface(clsNew.getModifiers()) &&
-                        cls.isAssignableFrom(clsNew) ) {
+                        !clsNew.isMemberClass() &&
+                        cls.isAssignableFrom(clsNew) && !isExcluded(clsNew) ) {
                     result.add(clsNew);
                 }
             } catch (ClassNotFoundException ex) {

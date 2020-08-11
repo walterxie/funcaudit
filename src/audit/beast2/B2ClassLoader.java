@@ -35,8 +35,8 @@ public class B2ClassLoader extends AbstractClassLoader {
 //            beast.evolution.branchratemodel.BranchRateModel.class,
 //            beast.core.parameter.Parameter.class,
                 beast.core.CalculationNode.class,
-                beast.core.Distribution.class, beast.core.Function.class
-    };}
+                beast.core.Distribution.class, beast.core.Function.class };
+    }
  /*
              beast.math.distributions.ParametricDistribution.class,
              beast.evolution.datatype.DataType.class
@@ -48,6 +48,16 @@ public class B2ClassLoader extends AbstractClassLoader {
         b2loader.getChildClassNames(StateNode.class, null);
         b2loader.getChildClassNames(CalculationNode.class, null);
 */
+
+    @Override
+    protected Class[] getExclClasses() {
+        return new Class[]{beast.math.distributions.ParametricDistribution.class};
+    }
+
+    @Override
+    protected String[] getExclPackages() {
+        return new String[]{};
+    }
 
 
     public static void main(String[] args) {

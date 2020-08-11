@@ -28,6 +28,17 @@ public class LPhyClassLoader extends AbstractClassLoader {
         return new Class[]{lphy.graphicalModel.Generator.class,lphy.graphicalModel.Value.class};
     }
 
+    @Override
+    protected Class[] getExclClasses() {
+        return new Class[0];
+    }
+
+    @Override
+    protected String[] getExclPackages() {
+        return new String[]{"lphy.graphicalModel.types","lphy.parser"};
+    }
+
+
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyClassLoader();
