@@ -5,8 +5,8 @@ import audit.AbstractClassLoader;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.jar.JarFile;
 
 /**
@@ -21,7 +21,7 @@ public class B2ClassLoader extends AbstractClassLoader {
 
 
     @Override
-    protected List<Class<?>> getSubclasses(Class<?> cls) {
+    protected Set<Class<?>> getSubclasses(Class<?> cls) {
 //        return PackageManager.find(cls, pkgDir); // load all installed pkgs
         Path jarPath = Paths.get(JarPathString);
         JarFile jarF =  getJarFile(jarPath);
@@ -51,19 +51,27 @@ public class B2ClassLoader extends AbstractClassLoader {
 
     @Override
     protected Class[] getExclClasses() {
-        return new Class[]{beast.math.distributions.ParametricDistribution.class};
+        return new Class[]{beast.math.distributions.ParametricDistribution.class,
+                // BranchRateModel is a prior, incl in PhyloCTMCToBEAST
+                beast.evolution.branchratemodel.BranchRateModel.class,
+                beast.evolution.branchratemodel.RateStatistic.class};
     }
 
     @Override
     protected String[] getExclPackages() {
-        return new String[]{};
+        return new String[]{"beast.app","beast.core.parameter","beast.evolution.likelihood"};
+    }
+
+    @Override
+    protected String getTitle() {
+        return "BEAST 2";
     }
 
 
     public static void main(String[] args) {
 
         AbstractClassLoader b2loader = new B2ClassLoader();
-        Map<Class<?>, List<Class<?>>> inheritMap = b2loader.getInheritanceMap();
+        Map<Class<?>, Set<Class<?>>> inheritMap = b2loader.getInheritanceMap();
 
         try {
             b2loader.writeMarkdown("beast2.md", "BEAST 2", inheritMap);

@@ -4,8 +4,9 @@ import audit.AbstractClassLoader;
 import audit.beast2.B2ClassLoader;
 
 import java.io.FileNotFoundException;
-import java.util.List;
+import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Walter Xie
@@ -19,16 +20,22 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
         return new Class[]{lphybeast.GeneratorToBEAST.class,lphybeast.ValueToBEAST.class};
     }
 
+    @Override
+    protected String getTitle() {
+        return "LPhy to BEAST 2";
+    }
+
+    // Note: need to run ant build to refresh the lphy and lphybeast classes
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyBEASTClassLoader();
-        Map<Class<?>, List<Class<?>>> lpbInheritMap = loader.getInheritanceMap();
+        Map<Class<?>, Set<Class<?>>> lpbInheritMap = loader.getInheritanceMap();
 
         AbstractClassLoader loader2 = new LPhyClassLoader();
-        Map<Class<?>, List<Class<?>>> lphyInheritMap = loader2.getInheritanceMap();
+        Map<Class<?>, Set<Class<?>>> lphyInheritMap = loader2.getInheritanceMap();
 
         AbstractClassLoader b2loader = new B2ClassLoader();
-        Map<Class<?>, List<Class<?>>> beastInheritMap = b2loader.getInheritanceMap();
+        Map<Class<?>, Set<Class<?>>> beastInheritMap = b2loader.getInheritanceMap();
 
         LPhyBEASTClassHelper helper = new LPhyBEASTClassHelper();
         // Class<?> lphybeast <=> Class<?> lphy
@@ -36,7 +43,8 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
         // Class<?> lphybeast <=> Class<?> beast
         Map<Class<?>, Class<?>> beastClassMap = helper.createBEASTClassMap(lpbInheritMap);
         try {
-            helper.writeMarkdown("lphybeast.md", new String[]{"LPhyBEAST","LPhy","BEAST 2"},
+            PrintWriter out = new PrintWriter("lphybeast.md");
+            helper.writeResultTable(out, new String[]{"LPhyBEAST","LPhy","BEAST 2"},
                     lpbInheritMap, lphyInheritMap, beastInheritMap, lPhyClassMap, beastClassMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

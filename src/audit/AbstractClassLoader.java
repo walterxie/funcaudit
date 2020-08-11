@@ -39,26 +39,26 @@ public abstract class AbstractClassLoader {
     }
 
 
-    public List<Class<?>> getChildClassNames(Class<?> cls, String regxContain) {
-        List<Class<?>> listCCN = getSubclasses(cls);
+    public Set<Class<?>> getChildClassNames(Class<?> cls, String regxContain) {
+        Set<Class<?>> cnnSet = getSubclasses(cls);
         // rm itself
-        listCCN.removeIf(s -> s.equals(cls));
+        cnnSet.removeIf(s -> s.equals(cls));
         // contains, if regx not null
         if (Objects.nonNull(regxContain)) {
-            listCCN.removeIf(s -> !s.getName().contains(regxContain));
+            cnnSet.removeIf(s -> !s.getName().contains(regxContain));
         }
 
-        System.out.println(cls.getSimpleName() + " child class = " + listCCN.size());
-        System.out.println(Arrays.toString(listCCN.toArray()));
-        return (listCCN);
+        System.out.println(cls.getSimpleName() + " child class = " + cnnSet.size());
+        System.out.println(Arrays.toString(cnnSet.toArray()));
+        return cnnSet;
     }
 
-    public Map<Class<?>, List<Class<?>>> getInheritanceMap() {
+    public Map<Class<?>, Set<Class<?>>> getInheritanceMap() {
         // insertion-ordered
-        Map<Class<?>, List<Class<?>>> inheritMap = new LinkedHashMap();
+        Map<Class<?>, Set<Class<?>>> inheritMap = new LinkedHashMap();
 
         for (Class cls : getClasses()) {
-            List<Class<?>> listClsNm = getChildClassNames(cls, null);
+            Set<Class<?>> listClsNm = getChildClassNames(cls, null);
             Class<?> key = cls;
             listClsNm.remove(key);
             inheritMap.put(key, listClsNm);
@@ -67,16 +67,34 @@ public abstract class AbstractClassLoader {
         return inheritMap;
     }
 
-    public void writeMarkdown (String fn, String title, Map<Class<?>, List<Class<?>>> inheritMap) throws FileNotFoundException {
+    public void writeSummary(PrintWriter out) { // TODO
+//        out.println("# ");
+        out.println("## " + getTitle());
+
+        String incl = "";
+//        for (Class exclCls : getExclClasses()) {
+//            if (exclCls.isAssignableFrom(cls))
+//                return true;
+//        }
+        out.println("Include " + incl);
+
+        String excl = "";
+        out.println("Exclude " + excl);
+    }
+
+
+    @Deprecated
+    public void writeMarkdown (String fn, String title, Map<Class<?>, Set<Class<?>>> inheritMap)
+            throws FileNotFoundException {
 
         try (PrintWriter out = new PrintWriter(fn)) {
 
             out.println("| " + title + " |");
             out.println("| ------- |");
 
-            for (Map.Entry<Class<?>, List<Class<?>>> entry : inheritMap.entrySet()) {
+            for (Map.Entry<Class<?>, Set<Class<?>>> entry : inheritMap.entrySet()) {
                 Class<?> key = entry.getKey();
-                List<Class<?>> classes = entry.getValue();
+                Set<Class<?>> classes = entry.getValue();
 
                 out.println("| **" + key.getName() + "** |");
                 for (Class<?> cls : classes) {
@@ -89,13 +107,14 @@ public abstract class AbstractClassLoader {
 
     protected abstract Class[] getClasses();
 
-    protected abstract List<Class<?>> getSubclasses(Class<?> cls);
+    protected abstract Set<Class<?>> getSubclasses(Class<?> cls);
 
     // give the parent class/interface to exclude it and child classes from the list
     protected abstract Class[] getExclClasses();
 
     protected abstract String[] getExclPackages();
 
+    protected abstract String getTitle();
 
     protected void initClassLoader(String urlSpec) {
         URL[] urls = new URL[0];
@@ -117,12 +136,12 @@ public abstract class AbstractClassLoader {
      * @param pkgname the package to search in
      * @return a list with all the found classnames
      */
-    protected List<Class<?>> getSubclasses(Class<?> cls, JarFile jarFile, String pkgname) {
+    protected Set<Class<?>> getSubclasses(Class<?> cls, JarFile jarFile, String pkgname) {
         Enumeration<JarEntry> e = jarFile.entries();
 
         initClassLoader("jar:file:" + jarFile + "!/");
 
-        List<Class<?>> result = new ArrayList<>();
+        Set<Class<?>> result = new LinkedHashSet<>();
         while (e.hasMoreElements()) {
             JarEntry je = e.nextElement();
             if(je.isDirectory() || !je.getName().endsWith(".class")){
@@ -167,10 +186,10 @@ public abstract class AbstractClassLoader {
      * @param pkgname the package to search in
      * @return a list with all the found classnames
      */
-    protected List<Class<?>> getSubclasses(Class<?> cls, Path buildPath, String pkgname) {
+    protected Set<Class<?>> getSubclasses(Class<?> cls, Path buildPath, String pkgname) {
         initClassLoader("file://" + buildPath + "/");
 
-        List<Class<?>> result = new ArrayList<>();
+        Set<Class<?>> result = new LinkedHashSet<>();
 //        final PathMatcher filter = FileSystems.getDefault().getPathMatcher("glob:.class");
 
         try (final Stream<Path> stream = Files.walk(buildPath).filter(Files::isRegularFile)) {
@@ -212,7 +231,7 @@ public abstract class AbstractClassLoader {
 
 
     // add class if it is inherited from cls
-    private void addClassName(String className, Class<?> cls, List<Class<?>> result, String pkgname) {
+    private void addClassName(String className, Class<?> cls, Set<Class<?>> result, String pkgname) {
         // / => .
         if (className.indexOf('/') >= 0)
             className = className.replaceAll("/", ".");
@@ -228,6 +247,7 @@ public abstract class AbstractClassLoader {
                         !Modifier.isInterface(clsNew.getModifiers()) &&
                         !clsNew.isMemberClass() &&
                         cls.isAssignableFrom(clsNew) && !isExcluded(clsNew) ) {
+
                     result.add(clsNew);
                 }
             } catch (ClassNotFoundException ex) {

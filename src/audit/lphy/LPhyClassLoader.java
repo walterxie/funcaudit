@@ -5,8 +5,8 @@ import audit.AbstractClassLoader;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Walter Xie
@@ -18,13 +18,13 @@ public class LPhyClassLoader extends AbstractClassLoader {
             "/WorkSpace/linguaPhylo/build";
 
     @Override
-    protected List<Class<?>> getSubclasses(Class<?> cls) {
+    protected Set<Class<?>> getSubclasses(Class<?> cls) {
         Path dir = Paths.get(CLSPathString);
         return getSubclasses(cls, dir, PKG);
     }
 
     @Override
-    protected Class[] getClasses() { // TODO excl: lphy.core.functions? lphy.parser? lphy.graphicalModel.types?
+    protected Class[] getClasses() {
         return new Class[]{lphy.graphicalModel.Generator.class,lphy.graphicalModel.Value.class};
     }
 
@@ -38,11 +38,16 @@ public class LPhyClassLoader extends AbstractClassLoader {
         return new String[]{"lphy.graphicalModel.types","lphy.parser"};
     }
 
+    @Override
+    protected String getTitle() {
+        return "LPhy";
+    }
+
 
     public static void main(String[] args) {
 
         AbstractClassLoader loader = new LPhyClassLoader();
-        Map<Class<?>, List<Class<?>>> inheritMap = loader.getInheritanceMap();
+        Map<Class<?>, Set<Class<?>>> inheritMap = loader.getInheritanceMap();
 
         try {
             loader.writeMarkdown("lphy.md", "Lphy", inheritMap);
