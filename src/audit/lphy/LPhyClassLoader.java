@@ -34,7 +34,7 @@ public class LPhyClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected String[] getExclPackages() {
+    protected String[] getExclStartWith() {
         return new String[]{"lphy.graphicalModel.types","lphy.parser"};
     }
 

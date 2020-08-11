@@ -189,9 +189,9 @@
 <td>beast.core.parameter.BooleanParameter</td>
 </tr>
 <tr>
-<td><b>Suspected missing parser</b></td>
+<td><b>LPhyBEAST TODO</b></td>
 <td><b>Implemented LPhy</b></td>
-<td><b>Implemented BEAST</b></td>
+<td><b>Implemented BEAST 2</b></td>
 </tr>
 <tr>
 <td></td>

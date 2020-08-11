@@ -58,7 +58,7 @@ public class B2ClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected String[] getExclPackages() {
+    protected String[] getExclStartWith() {
         return new String[]{"beast.app","beast.core.parameter","beast.evolution.likelihood",
                 // this rm all starting with -.-.-.Tree, such as TreeStatLogger, TreeDistribution
                 "beast.evolution.tree.Tree"};

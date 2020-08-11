@@ -112,7 +112,12 @@ public abstract class AbstractClassLoader {
     // give the parent class/interface to exclude it and child classes from the list
     protected abstract Class[] getExclClasses();
 
-    protected abstract String[] getExclPackages();
+    /**
+     * The string starting with any of given substrings will be excluded.
+     * This can be used to exclude either a package  beast.app,
+     * or some classes starting with beast.evolution.tree.Tree*, such as TreeStatLogger, TreeDistribution.
+     */
+    protected abstract String[] getExclStartWith();
 
     protected abstract String getTitle();
 
@@ -222,7 +227,7 @@ public abstract class AbstractClassLoader {
             if (exclCls.isAssignableFrom(cls))
                 return true;
         }
-        for (String exclPkg : getExclPackages()) {
+        for (String exclPkg : getExclStartWith()) {
             if (cls.getName().startsWith(exclPkg))
                 return true;
         }

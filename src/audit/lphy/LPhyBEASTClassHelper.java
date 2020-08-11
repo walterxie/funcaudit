@@ -101,9 +101,9 @@ public class LPhyBEASTClassHelper {
             }
         }
 
-        out.println("<tr>\n<td><b>Suspected missing parser</b></td>\n" +
-                "<td><b>Implemented LPhy</b></td>\n" +
-                "<td><b>Implemented BEAST</b></td>\n</tr>");
+        out.println("<tr>\n<td><b>"+ title[0] + " TODO</b></td>\n" +
+                "<td><b>Implemented " + title[1] + "</b></td>\n" +
+                "<td><b>Implemented " + title[2] + "</b></td>\n</tr>");
 
         // add the rest to make union
         Set<Class<?>> exclClassSet = getExcludedClasses(cls2Set, lphyInheritMap);
