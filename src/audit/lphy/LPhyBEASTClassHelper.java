@@ -106,16 +106,16 @@ public class LPhyBEASTClassHelper {
                 "<td><b>Implemented BEAST</b></td>\n</tr>");
 
         // add the rest to make union
-        Set<Class<?>> restList = getExcludedClassList(cls2Set, lphyInheritMap);
-        if (restList.size() > 0) {
-            for (Class<?> cls : restList)
+        Set<Class<?>> exclClassSet = getExcludedClasses(cls2Set, lphyInheritMap);
+        if (exclClassSet.size() > 0) {
+            for (Class<?> cls : exclClassSet)
                 out.println("<tr>\n<td></td>\n<td>" + cls.getName() + "</td>\n<td></td>\n</tr>");
         }//TODO BEAST rest of matching LPhy
 
         //TODO make better BEAST rest
-        restList = getExcludedClassList(cls3Set, beastInheritMap);
-        if (restList.size() > 0) {
-            for (Class<?> cls : restList)
+        exclClassSet = getExcludedClasses(cls3Set, beastInheritMap);
+        if (exclClassSet.size() > 0) {
+            for (Class<?> cls : exclClassSet)
                 out.println("<tr>\n<td></td>\n<td></td>\n<td>" + cls.getName() + "</td>\n</tr>");
         }
 
@@ -126,12 +126,13 @@ public class LPhyBEASTClassHelper {
     }
 
 
-    private Set<Class<?>> getExcludedClassList(Set<Class<?>> clsInclSet,
-                                                Map<Class<?>, Set<Class<?>>> inheritMap) {
-        Set<Class<?>> exclSet = new LinkedHashSet<>();
+    private Set<Class<?>> getExcludedClasses(Set<Class<?>> clsInclSet,
+                                             Map<Class<?>, Set<Class<?>>> inheritMap) {
+        // sort by pkg + name
+        Set<Class<?>> exclSet = new TreeSet<>(Comparator.comparing(Class::getName));
 
         for (Map.Entry<Class<?>, Set<Class<?>>> entry : inheritMap.entrySet()) {
-//            Class<?> key = entry.getKey(); //TODO need incl key?
+//            Class<?> key = entry.getKey(); // excl key
             Set<Class<?>> classes = entry.getValue();
 
             for (Class<?> cls : classes) {
