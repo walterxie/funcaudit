@@ -261,16 +261,6 @@
 <tr>
 <td></td>
 <td></td>
-<td>beast.app.mascot.beauti.TreeWithTrait</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>beast.app.mascot.beauti.TreeWithTraitInitializer</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
 <td>beast.mascot.distribution.MascotNative</td>
 </tr>
 <tr>

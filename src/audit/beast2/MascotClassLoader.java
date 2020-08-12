@@ -31,7 +31,7 @@ public class MascotClassLoader extends AbstractClassLoader {
 
     @Override
     protected String[] getExclStartWith() {
-        return new String[0];
+        return new String[]{"beast.app"};
     }
 
     @Override
