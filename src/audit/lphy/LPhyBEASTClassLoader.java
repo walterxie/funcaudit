@@ -13,10 +13,9 @@ import java.util.Set;
  */
 public class LPhyBEASTClassLoader extends LPhyClassLoader {
 
-    protected String PKG = "lphybeast";
 
     @Override
-    protected Class[] getClasses() {
+    protected Class[] getSuperClasses() {
         return new Class[]{lphybeast.GeneratorToBEAST.class,lphybeast.ValueToBEAST.class};
     }
 

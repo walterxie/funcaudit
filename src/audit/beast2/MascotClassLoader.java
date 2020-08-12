@@ -2,8 +2,6 @@ package audit.beast2;
 
 import audit.AbstractClassLoader;
 
-import java.util.Set;
-
 /**
  * @author Walter Xie
  */
@@ -11,13 +9,18 @@ public class MascotClassLoader extends AbstractClassLoader {
 
 
     @Override
-    protected Class[] getClasses() {
+    protected String[] getPkgNames() {
+        return new String[]{"beast","mascot"};
+    }
+
+    @Override
+    protected Class[] getSuperClasses() {
         return new Class[0];
     }
 
     @Override
-    protected Set<Class<?>> getSubclasses(Class<?> cls) {
-        return null;
+    protected String getPathString() {
+        return MY_PATH + "linguaPhylo/lphybeast/lib/Mascot.v2.1.2.jar";
     }
 
     @Override

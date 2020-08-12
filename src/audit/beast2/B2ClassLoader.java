@@ -3,32 +3,25 @@ package audit.beast2;
 import audit.AbstractClassLoader;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.JarFile;
 
 /**
  * @author Walter Xie
  */
 public class B2ClassLoader extends AbstractClassLoader {
 
-//    final String[] pkgDir;
-    protected final String PKG = "beast";
-    protected String JarPathString = System.getProperty("user.home") +
-            "/WorkSpace/linguaPhylo/lphybeast/lib/beast.jar";
-
-
     @Override
-    protected Set<Class<?>> getSubclasses(Class<?> cls) {
-//        return PackageManager.find(cls, pkgDir); // load all installed pkgs
-        Path jarPath = Paths.get(JarPathString);
-        JarFile jarF =  getJarFile(jarPath);
-        return getSubclasses(cls, jarF, PKG);
+    protected String getPathString() {
+        return MY_PATH + "linguaPhylo/lphybeast/lib/beast.jar";
     }
 
-    protected Class[] getClasses() {
+    @Override
+    protected String[] getPkgNames() {
+        return new String[]{"beast"};
+    }
+
+    protected Class[] getSuperClasses() {
         return new Class[]{
 //                Alignment.class, SubstitutionModel.class,
 //            beast.evolution.sitemodel.SiteModelInterface.class,

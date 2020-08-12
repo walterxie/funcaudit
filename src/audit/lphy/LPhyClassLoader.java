@@ -3,8 +3,6 @@ package audit.lphy;
 import audit.AbstractClassLoader;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,18 +11,21 @@ import java.util.Set;
  */
 public class LPhyClassLoader extends AbstractClassLoader {
 
-    protected String PKG = "lphy";
-    final String CLSPathString = System.getProperty("user.home") +
-            "/WorkSpace/linguaPhylo/build";
-
+    /**
+     * run ant build to refresh classes in the folder /build
+     */
     @Override
-    protected Set<Class<?>> getSubclasses(Class<?> cls) {
-        Path dir = Paths.get(CLSPathString);
-        return getSubclasses(cls, dir, PKG);
+    protected String getPathString() {
+        return MY_PATH + "linguaPhylo/build";
     }
 
     @Override
-    protected Class[] getClasses() {
+    protected String[] getPkgNames() {
+        return new String[]{"lphy"};
+    }
+
+    @Override
+    protected Class[] getSuperClasses() {
         return new Class[]{lphy.graphicalModel.Generator.class,lphy.graphicalModel.Value.class};
     }
 
