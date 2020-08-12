@@ -15,7 +15,7 @@ Main report : [LPhyBEAST](lphybeast.md)
 
 Other reports :
 
-1. BEAST Lab
+1. [BEAST Lab](lphybeastlab.md)
 
-2. BEAST classic
+2. [Mascot](lphymascot.md)
 
