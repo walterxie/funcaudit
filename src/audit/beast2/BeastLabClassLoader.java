@@ -1,22 +1,28 @@
 package audit.beast2;
 
-import audit.AbstractClassLoader;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Set;
+import java.util.jar.JarFile;
 
 /**
  * @author Walter Xie
  */
-public class BeastLabClassLoader extends AbstractClassLoader {
+public class BeastLabClassLoader extends B2ClassLoader {
+
+    protected String JarPathString = System.getProperty("user.home") +
+            "/WorkSpace/linguaPhylo/lphybeast/lib/BEASTlabs.addon.jar";
 
     @Override
     protected Class[] getClasses() {
-        return new Class[0];
+        return super.getClasses();
     }
 
     @Override
     protected Set<Class<?>> getSubclasses(Class<?> cls) {
-        return null;
+        Path jarPath = Paths.get(JarPathString);
+        JarFile jarF =  getJarFile(jarPath);
+        return getSubclasses(cls, jarF, PKG);
     }
 
     @Override
@@ -31,6 +37,6 @@ public class BeastLabClassLoader extends AbstractClassLoader {
 
     @Override
     protected String getTitle() {
-        return null;
+        return "BEAST Lab";
     }
 }

@@ -15,8 +15,8 @@ import java.util.jar.JarFile;
 public class B2ClassLoader extends AbstractClassLoader {
 
 //    final String[] pkgDir;
-    final String PKG = "beast";
-    final String JarPathString = System.getProperty("user.home") +
+    protected final String PKG = "beast";
+    protected String JarPathString = System.getProperty("user.home") +
             "/WorkSpace/linguaPhylo/lphybeast/lib/beast.jar";
 
 
