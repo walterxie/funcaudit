@@ -5,6 +5,7 @@
 
 package audit;
 
+import audit.beast2.B2ClassLoader;
 import audit.beast2.BeastLabClassLoader;
 import audit.beast2.MascotClassLoader;
 import audit.lphy.LPhyBEASTClassHelper;
@@ -40,10 +41,11 @@ public class Audit {
         Map<Class<?>, Class<?>> beastClassMap = helper.createBEASTClassMap(lphybeastInheritMap);
 
         String[] titles = new String[]{"LPhyBEAST", "LPhy", b2loader.getTitle()};
+        boolean showall = b2loader.getTitle().equalsIgnoreCase("BEAST 2");
         try {
             PrintWriter out = new PrintWriter(fn);
-            helper.writeResultTable(out, titles, lphybeastInheritMap, lphyInheritMap, beastInheritMap,
-                    lPhyClassMap, beastClassMap);
+            helper.writeResultTable(out, titles, showall, lphybeastInheritMap,
+                    lphyInheritMap, beastInheritMap, lPhyClassMap, beastClassMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -54,9 +56,9 @@ public class Audit {
         Audit audit;
 
         // BEAST
-//        loader = new B2ClassLoader();
-//        audit = new Audit(loader);
-//        audit.writeMarkdown("lphybeast.md", new String[]{"LPhyBEAST","LPhy", loader.getTitle()});
+        loader = new B2ClassLoader();
+        audit = new Audit(loader);
+        audit.writeMarkdown("lphybeast.md");
 
         // BEAST Lab
         loader = new BeastLabClassLoader();

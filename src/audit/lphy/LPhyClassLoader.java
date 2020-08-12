@@ -40,7 +40,7 @@ public class LPhyClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return "LPhy";
     }
 

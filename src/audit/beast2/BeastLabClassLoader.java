@@ -12,7 +12,7 @@ public class BeastLabClassLoader extends B2ClassLoader {
 
     @Override
     protected Class[] getSuperClasses() {
-        return super.getSuperClasses();
+        return super.getSuperClasses(); //TODO any to add ?
     }
 
     @Override
@@ -26,7 +26,7 @@ public class BeastLabClassLoader extends B2ClassLoader {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return "BEAST Lab";
     }
 }

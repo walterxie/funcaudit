@@ -34,7 +34,9 @@ public abstract class AbstractClassLoader {
         // insertion-ordered
         Map<Class<?>, Set<Class<?>>> inheritMap = new LinkedHashMap();
 
-        for (Class cls : getSuperClasses()) {
+        Class[] superClasses = getSuperClasses();
+        assert superClasses.length > 1;
+        for (Class cls : superClasses) {
             Set<Class<?>> listClsNm = getSubClassesFrom(cls, null);
             Class<?> key = cls;
             listClsNm.remove(key);
@@ -86,6 +88,7 @@ public abstract class AbstractClassLoader {
     protected abstract String[] getPkgNames();
 
     // define super classes to load (together with their subclasses)
+    // such as beast.core.CalculationNode.class
     protected abstract Class[] getSuperClasses();
 
     // either jar or dir
@@ -103,7 +106,7 @@ public abstract class AbstractClassLoader {
     protected abstract String[] getExclStartWith();
 
     // for Markdown
-    protected abstract String getTitle();
+    public abstract String getTitle();
 
     //****** init ******//
 

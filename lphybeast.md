@@ -3,7 +3,7 @@
 <tr>
 <th>LPhyBEAST</th>
 <th>LPhy</th>
-<th>BEAST 2</th>
+<th> BEAST classes </th>
 </tr>
 </thead>
 
@@ -188,11 +188,17 @@
 <td>[Ljava.lang.Boolean;</td>
 <td>beast.core.parameter.BooleanParameter</td>
 </tr>
+</tbody>
+
+<thead>
 <tr>
-<td><b>LPhyBEAST TODO</b></td>
-<td><b>Implemented LPhy</b></td>
-<td><b>Implemented BEAST 2</b></td>
+<th>LPhyBEAST TODO</th>
+<th>Implemented LPhy</th>
+<th>Implemented BEAST 2</th>
 </tr>
+</thead>
+
+<tbody>
 <tr>
 <td></td>
 <td>lphy.core.CTMC</td>

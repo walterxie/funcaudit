@@ -58,7 +58,7 @@ public class B2ClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return "BEAST 2";
     }
 

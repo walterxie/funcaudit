@@ -15,7 +15,8 @@ public class MascotClassLoader extends AbstractClassLoader {
 
     @Override
     protected Class[] getSuperClasses() {
-        return new Class[0];
+        return new Class[]{beast.core.CalculationNode.class,
+                beast.core.Distribution.class, beast.core.Function.class};
     }
 
     @Override
@@ -34,7 +35,7 @@ public class MascotClassLoader extends AbstractClassLoader {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return "Mascot";
     }
 }

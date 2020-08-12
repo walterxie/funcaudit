@@ -55,7 +55,7 @@ public class LPhyBEASTClassHelper {
     }
 
     // outer_join
-    public void writeResultTable(PrintWriter out, String[] title,
+    public void writeResultTable(PrintWriter out, String[] title, boolean showall,
                                  final Map<Class<?>, Set<Class<?>>> lphybeastInheritMap,
                                  final Map<Class<?>, Set<Class<?>>> lphyInheritMap,
                                  final Map<Class<?>, Set<Class<?>>> beastInheritMap,
@@ -64,16 +64,17 @@ public class LPhyBEASTClassHelper {
 
         assert title.length == 3;
 
-        // header
         out.println("<table border=\"1\" width=\"100%\" style=\"margin: 0px;\">");
-        out.println("<thead>\n<tr>\n" +
-                "<th>" + title[0] + "</th>\n" +
-                "<th>" + title[1] + "</th>\n" +
-                "<th>" + title[2] + "</th>\n" +
-                "</tr>\n</thead>\n");
-        // body
-        out.println("<tbody>");
-
+        if (showall) {
+            // header
+            out.println("<thead>\n<tr>\n" +
+                    "<th>" + title[0] + "</th>\n" +
+                    "<th>" + title[1] + "</th>\n" +
+                    "<th> BEAST classes </th>\n" +
+                    "</tr>\n</thead>\n");
+            // body
+            out.println("<tbody>");
+        }
         // left join to inheritMap
         Set<Class<?>> cls2Set = new HashSet<>();
         Set<Class<?>> cls3Set = new HashSet<>();
@@ -81,7 +82,9 @@ public class LPhyBEASTClassHelper {
             Class<?> key = entry.getKey();
             Set<Class<?>> classes = entry.getValue();
 
-            out.println("<tr>\n<td><b>" + key.getName() + "</b></td>\n<td></td>\n<td></td>\n</tr>");
+            if (showall)
+                out.println("<tr>\n<td><b>" + key.getName() + "</b></td>\n<td></td>\n<td></td>\n</tr>");
+
             for (Class<?> cls : classes) {
                 String col2 = "";
                 Class<?> cls2 = lphyClassMap.get(cls);
@@ -93,17 +96,24 @@ public class LPhyBEASTClassHelper {
                 if (cls3 != null)
                     col3 = cls3.getName();
 
-                out.println("<tr>\n<td>" + cls.getName() + "</td>\n<td>" + col2 +
-                        "</td>\n<td>" + col3 + "</td>\n</tr>");
+                if (showall)
+                    out.println("<tr>\n<td>" + cls.getName() + "</td>\n<td>" +
+                            col2 + "</td>\n<td>" + col3 + "</td>\n</tr>");
 
                 cls2Set.add(cls2);
                 cls3Set.add(cls3);
             }
         }
+        if (showall) out.println("</tbody>\n");
 
-        out.println("<tr>\n<td><b>"+ title[0] + " TODO</b></td>\n" +
-                "<td><b>Implemented " + title[1] + "</b></td>\n" +
-                "<td><b>Implemented " + title[2] + "</b></td>\n</tr>");
+        // 2nd header
+        out.println("<thead>\n<tr>\n" +
+                "<th>" + title[0] + " TODO</th>\n" +
+                "<th>Implemented " + title[1] + "</th>\n" +
+                "<th>Implemented " + title[2] + "</th>\n" +
+                "</tr>\n</thead>\n");
+        // body
+        out.println("<tbody>");
 
         // add the rest to make union
         Set<Class<?>> exclClassSet = getExcludedClasses(cls2Set, lphyInheritMap);

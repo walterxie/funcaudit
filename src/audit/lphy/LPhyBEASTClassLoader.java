@@ -20,7 +20,7 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return "LPhy to BEAST 2";
     }
 
@@ -33,7 +33,7 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
         AbstractClassLoader loader2 = new LPhyClassLoader();
         Map<Class<?>, Set<Class<?>>> lphyInheritMap = loader2.getInheritanceMap();
 
-        AbstractClassLoader b2loader = new B2ClassLoader();
+        B2ClassLoader b2loader = new B2ClassLoader();
         Map<Class<?>, Set<Class<?>>> beastInheritMap = b2loader.getInheritanceMap();
 
         LPhyBEASTClassHelper helper = new LPhyBEASTClassHelper();
@@ -43,7 +43,7 @@ public class LPhyBEASTClassLoader extends LPhyClassLoader {
         Map<Class<?>, Class<?>> beastClassMap = helper.createBEASTClassMap(lphybeastInheritMap);
         try {
             PrintWriter out = new PrintWriter("lphybeast.md");
-            helper.writeResultTable(out, new String[]{"LPhyBEAST","LPhy","BEAST 2"},
+            helper.writeResultTable(out, new String[]{"LPhyBEAST","LPhy", b2loader.getTitle()}, true,
                     lphybeastInheritMap, lphyInheritMap, beastInheritMap, lPhyClassMap, beastClassMap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
