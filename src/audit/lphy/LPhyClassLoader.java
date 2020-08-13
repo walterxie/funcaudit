@@ -31,12 +31,12 @@ public class LPhyClassLoader extends AbstractClassLoader {
 
     @Override
     protected Class[] getExclClasses() {
-        return new Class[0];
+        return new Class[0];//TODO birth death
     }
 
     @Override
     protected String[] getExclStartWith() {
-        return new String[]{"lphy.graphicalModel.types","lphy.parser"};
+        return new String[]{"lphy.graphicalModel.types","lphy.parser","lphy.core.distributions"};
     }
 
     @Override
